@@ -5,7 +5,7 @@ import { RustLexer } from './parser/src/RustLexer'
 import { ExpressionContext, ProgramContext, RustParser } from './parser/src/RustParser';
 import { RustVisitor } from './parser/src/RustVisitor';
 
-class SimpleLangEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements RustVisitor<number> {
+class RustEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements RustVisitor<number> {
     // Visit a parse tree produced by SimpleLangParser#prog
     visitProg(ctx: ProgramContext): number {
         return this.visit(ctx.statement(0));
@@ -57,12 +57,12 @@ class SimpleLangEvaluatorVisitor extends AbstractParseTreeVisitor<number> implem
 
 export class RustEvaluator extends BasicEvaluator {
     private executionCount: number;
-    private visitor: SimpleLangEvaluatorVisitor;
+    private visitor: RustEvaluatorVisitor;
 
     constructor(conductor: IRunnerPlugin) {
         super(conductor);
         this.executionCount = 0;
-        this.visitor = new SimpleLangEvaluatorVisitor();
+        this.visitor = new RustEvaluatorVisitor();
     }
 
     async evaluateChunk(chunk: string): Promise<void> {
