@@ -81,7 +81,7 @@ export class RustEvaluator extends BasicEvaluator {
             const result = this.visitor.visit(tree);
             
             // Send the result to the REPL
-            this.conductor.sendOutput(`Result of expression: ${result}`);
+            this.conductor.sendOutput(`Result of expression hehe: ${result}`);
         }  catch (error) {
             // Handle errors and send them to the REPL
             if (error instanceof Error) {
