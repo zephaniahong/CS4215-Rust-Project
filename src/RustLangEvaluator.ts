@@ -12,7 +12,7 @@ class RustEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements R
     }
 
     // Visit a parse tree produced by SimpleLangParser#expression
-    visitExpressionStatement(ctx: ExpressionStatementContext): number {
+    visitExpression(ctx: ExpressionContext): number {
         if (ctx.getChildCount() === 1) {
             // INT case
             return parseInt(ctx.getText());
