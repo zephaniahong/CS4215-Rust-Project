@@ -7,7 +7,7 @@ import { RustVisitor } from './parser/src/RustVisitor';
 
 class RustEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements RustVisitor<number> {
     // Visit a parse tree produced by SimpleLangParser#prog
-    visitProg(ctx: ProgramContext): number {
+    visitProgram(ctx: ProgramContext): number {
         return this.visit(ctx.statement(0));
     }
 
