@@ -2,7 +2,7 @@ import { BasicEvaluator } from "conductor/dist/conductor/runner";
 import { IRunnerPlugin } from "conductor/dist/conductor/runner/types";
 import { CharStream, CommonTokenStream, AbstractParseTreeVisitor } from 'antlr4ng';
 import { RustLexer } from './parser/src/RustLexer'
-import { ExpressionContext, ProgramContext, RustParser } from './parser/src/RustParser';
+import { ExpressionContext, ProgramContext, RustParser, ExpressionStatementContext } from './parser/src/RustParser';
 import { RustVisitor } from './parser/src/RustVisitor';
 
 class RustEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements RustVisitor<number> {
@@ -12,7 +12,7 @@ class RustEvaluatorVisitor extends AbstractParseTreeVisitor<number> implements R
     }
 
     // Visit a parse tree produced by SimpleLangParser#expression
-    visitExpression(ctx: ExpressionContext): number {
+    visitExpressionStatement(ctx: ExpressionStatementContext): number {
         if (ctx.getChildCount() === 1) {
             // INT case
             return parseInt(ctx.getText());
@@ -81,7 +81,7 @@ export class RustEvaluator extends BasicEvaluator {
             const result = this.visitor.visit(tree);
             
             // Send the result to the REPL
-            this.conductor.sendOutput(`Result of expression hehe: ${result}`);
+            this.conductor.sendOutput(`Result of expression hey: ${result}`);
         }  catch (error) {
             // Handle errors and send them to the REPL
             if (error instanceof Error) {
